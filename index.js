@@ -93,12 +93,14 @@ function generateSound(res) {
                     return;
                   }
                   console.log('Audio content written to file: ' + soundPath);
-                  exec('omxplayer -o local ' + soundPath, function(error, stdout, stderr) {
-                      if(!error) {
-                        return res.end("{ message: '"+message+"'}");
-                      } else {
-                        console.log('Didnt played audio.');
-                      }
+                  exec('mplayer ' + soundPath, function(error, stdout, stderr) {
+                        setTimeout( function() {
+                            if(!error) {
+                                return res.end("{ message: '"+message+"'}");
+                            } else {
+                                console.log('Didnt played audio.');
+                            }
+                        }, 3000);
                   });
                   
                 });
